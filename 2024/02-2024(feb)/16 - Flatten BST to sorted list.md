@@ -47,3 +47,40 @@ public:
 For discussions, questions, or doubts related to this solution, please visit our [discussion section](https://github.com/getlost01/gfg-potd/discussions). We welcome your input and aim to foster a collaborative learning environment.
 
 If you find this solution helpful, consider supporting us by giving a `⭐ star` to the [getlost01/gfg-potd](https://github.com/getlost01/gfg-potd) repository.
+
+I think the correct code should be (ADDING COMMENTS SO THAT CHANGES  ARE UNDERSTOOD EASILY)
+
+class Solution
+{
+public:
+    void inorder(Node *curr, Node *&prev)
+    {
+        // Base case
+        if (curr == NULL)
+            return;
+        inorder(curr->left, prev);
+        prev->left = NULL;
+        prev->right = curr;
+        prev = curr;
+        inorder(curr->right, prev);
+    }
+    Node *flattenBST(Node *root)
+    {
+        // Dummy node
+        Node *dummy = new Node(-1);
+
+        // Pointer to previous element
+        Node *prev = dummy;
+
+        // Calling in-order traversal
+        inorder(root, prev);
+
+        prev->left = NULL;
+        prev->right = NULL;
+        Node *ret = dummy->right;
+
+        // Delete dummy node
+        delete dummy;
+        return ret;
+    }
+};
